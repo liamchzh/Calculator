@@ -9,17 +9,20 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    @IBOutlet weak var display: UILabel!
+    
+    var begin: Bool = true
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    @IBAction func appendDitgit(sender: UIButton) {
+        
+        let number = sender.currentTitle!
+        
+        if begin {
+            display.text = number
+            begin = false
+        } else {
+            display.text = display.text! + number
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
-
