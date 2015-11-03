@@ -12,17 +12,36 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var display: UILabel!
     
-    var begin: Bool = true
+    var userIsInTheMiddleOfTypingANumber = false
 
     @IBAction func appendDitgit(sender: UIButton) {
         
         let number = sender.currentTitle!
         
-        if begin {
-            display.text = number
-            begin = false
-        } else {
+        if userIsInTheMiddleOfTypingANumber {
             display.text = display.text! + number
+        } else {
+            display.text = number
+            userIsInTheMiddleOfTypingANumber = true
+        }
+    }
+    
+    var operaStack = Array<Double>()
+    
+    @IBAction func enter(sender: UIButton) {
+        userIsInTheMiddleOfTypingANumber = false
+        operaStack.append(displayValue)
+        print("operaStack is \(operaStack)")
+    }
+    
+    var displayValue: Double {
+        get {
+            return NSNumberFormatter().numberFromString(display.text!)!.doubleValue
+        }
+        
+        set {
+            display.text = "\(newValue)"
+            userIsInTheMiddleOfTypingANumber = false
         }
     }
 }
