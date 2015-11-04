@@ -26,6 +26,33 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func operate(sender: UIButton) {
+        let operation = sender.currentTitle!
+        if userIsInTheMiddleOfTypingANumber {
+            userIsInTheMiddleOfTypingANumber = false
+            operaStack.append(displayValue)
+        }
+        
+        switch operation {
+            case "×": performOperation {$0 * $1}
+            case "÷": performOperation {$1 / $0}
+            case "-": performOperation {$1 - $0}
+            case "+": performOperation {$0 + $1}
+            default: break
+        }
+    }
+    
+    func performOperation(operation: (Double, Double) -> Double) {
+        if operaStack.count >= 2 {
+            displayValue = operation(operaStack.removeLast(), operaStack.removeLast())
+        }
+    }
+    
+//    func multiply(op1: Double, op2: Double) -> Double {
+//        print("multiply")
+//        return op1 * op2;
+//    }
+    
     var operaStack = Array<Double>()
     
     @IBAction func enter(sender: UIButton) {
